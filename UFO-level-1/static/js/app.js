@@ -5,6 +5,36 @@ var tbody = d3.select("tbody");
 
 console.log(tableData);
 
+// Submit Button handler
+function handleSubmit() {
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
+  
+    // Select the input value from the form
+    var datetime = d3.select("#datetime").node().value;
+    console.log(datetime);
+  
+    // // Select the input value from the form
+    // var startDateForm = d3.select("#startDateInput").node().value;
+    // console.log(startDateForm);
+  
+    // // Select the input value from the form
+    // var endDateForm = d3.select("#endDateInput").node().value;
+    // console.log(endDateForm);
+  
+    // // clear the input value
+    // d3.select("#stockInput").node().value = "";
+  
+    // // clear the input value
+    // d3.select("#startDateInput").node().value = "";
+  
+    // // clear the input value
+    // d3.select("#endDateInput").node().value = "";
+  
+    // Build the plot with the new stock
+    buildPlot(stock,startDateForm,endDateForm);
+};
+
 // tableData.forEach(function (ufoReport) {
 //     console.log(ufoReport);
 // });

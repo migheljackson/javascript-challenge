@@ -2,37 +2,40 @@
 var tableData = data;
 
 var tbody = d3.select("tbody");
+var form = d3.select("#dateform")
+var filterButton = d3.select("#filter-btn");
+var inputDate = d3.select("#datetime");
 
 console.log(tableData);
 
 // Submit Button handler
 function handleSubmit() {
-    // Prevent the page from refreshing
     d3.event.preventDefault();
-  
-    // Select the input value from the form
-    var datetime = d3.select("#datetime").node().value;
-    console.log(datetime);
-  
-    // // Select the input value from the form
-    // var startDateForm = d3.select("#startDateInput").node().value;
-    // console.log(startDateForm);
-  
-    // // Select the input value from the form
-    // var endDateForm = d3.select("#endDateInput").node().value;
-    // console.log(endDateForm);
-  
-    // // clear the input value
-    // d3.select("#stockInput").node().value = "";
-  
-    // // clear the input value
-    // d3.select("#startDateInput").node().value = "";
-  
-    // // clear the input value
-    // d3.select("#endDateInput").node().value = "";
-  
-    // Build the plot with the new stock
-    buildPlot(stock,startDateForm,endDateForm);
+
+    var filtDate = inputDate.property("value").trim();
+    // var inputValue = d3.select("value");
+
+    console.log(filtDate)
+
+    var filteredData = tableData.filter(tableData => tableData.datetime === filtDate);
+    
+    console.log(filteredData)
+
+    tbody.html("");
+
+    filteredData.forEach(function (ufoReport) {
+        console.log(ufoReport);
+        var row = tbody.append("tr");
+    
+        //for each entry in each ufo report, create a new cell
+        Object.entries(ufoReport).forEach(function([key, value]) {
+            console.log(key,value);
+            var cell = row.append("td");
+    
+            //add each value in ufo report to a successive cell
+            cell.text(value);
+        });
+    });
 };
 
 // tableData.forEach(function (ufoReport) {
@@ -54,3 +57,5 @@ tableData.forEach(function (ufoReport) {
     });
 });
 
+filterButton.on("click",handleSubmit);
+form.on("submit",handleSubmit);
